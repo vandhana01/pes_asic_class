@@ -177,7 +177,7 @@ int main(){
 + Application Binary Interface
   - [Introduction to ABI](#introduction-to-abi)
   - [Memory Allocation for Double Words](#memory-allocation-for-double-words)
-  - [Load, Add and Store Instructions](#load,-add-and-store-instructions)
+  - [Load, add and store instructions](#load-add-and-store-instructions)
   - [32-Registers and their ABI Names](#32-registers-and-their-abi-names)
 
 + Labwork using ABI Function Calls
@@ -207,7 +207,7 @@ int main(){
   
 <img width="650" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/76ab920b-3abd-4085-b1b7-96e40af4945b"> 
 
-## Load, Add and Store Instructions
+## Load, add and store instructions
 Load, Add, and Store instructions are often used to manipulate data within a computer's memory and registers.
 1. **Load Instructions:**
 Load instructions are used to transfer data from memory to registers. They allow you to fetch data from a specified memory address and place it into a register for further processing.
@@ -246,9 +246,63 @@ The ABI names provide meaningful and consistent labels to the registers, which s
 
 # Labwork using ABI Function Calls
 ## Algorithm for C Program using ASM
+- This allows you to take advantage of assembly language's low-level control and optimizations while still benefiting from C's higher-level constructs.
+- When you call an assembly function from your C code, the C calling convention is followed, including pushing arguments onto the stack or passing them in registers as required.
+- The program executes the assembly function, following the assembly instructions you've provided.
 
+## Review ASM Function Calls
+- C code and assembly code are written in separate files
+- Declaring assembly functions with appropriate signatures that match the calling conventions of your platform in assembly file
+ 
+**C Program**
+  
+  `1to9custom.c`
+  
+  ``` c
+  #include <stdio.h>
+  
+  extern int load(int x, int y);
+  
+  int main()
+  {
+    int result = 0;
+    int count = 9;
+    result = load(0x0, count+1);
+    printf("Sum of numbers from 1 to 9 is %d\n", result);
+  }
+  ```
+**Asseembly File**
 
+`load.s`
 
+``` s
+.section .text
+.global load
+.type load, @function
+
+load:
+
+add a4, a0, zero
+add a2, a0, a1
+add a3, a0, zero
+
+loop:
+
+add a4, a3, a4
+addi a3, a3, 1
+blt a3, a2, loop
+add a0, a4, zero
+ret
+```
+## Simulate C Program using Function Call
+
+Compile and execute the files 
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/87bb8d8a-1ce6-4631-8fcf-65116d2e32f7"> 
+
+Disassemble the code 
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/038da5c5-6402-4e90-825c-9c8548353a95">
 
 </details>
 
