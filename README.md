@@ -154,6 +154,31 @@ int main(){
 
 # DAY 2
 
+# Application Binary Interface
+
+## Introduction to ABI
++ Base Binary Instructions
+  - Base integer instructions refer to the fundamental set of instructions that operate on integer data in a computer's instruction set architecture (ISA)
+  - These are arithmetic, logical, Comparison, Data Movement, Control Flow performing operations
++ Application Binary Interface (ABI)
+  - An Application Binary Interface (ABI) serves as a crucial bridge between the software and hardware components of a computer system.
+  - ABIs enable software components to seamlessly communicate and collaborate, even across diverse programming languages, compilers, and hardware architectures.
+<img width="600" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/e25eba01-5478-4113-b402-e96d3da1ba9d"> 
+
+## Memory Allocation for Double Words
+- RISC-V has **32** registers
+  - 32 bits for RV32
+  - 64 bits for RV64
+
+- Memory addressing system
+  - **Little-Endian** (Risc-V belongs to little-endian)
+  - **Big-Endian**
+  
+<img width="650" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/76ab920b-3abd-4085-b1b7-96e40af4945b"> 
+
+## Load, Add and Store Instructions
+
+
 
 
 
