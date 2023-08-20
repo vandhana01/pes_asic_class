@@ -1,7 +1,7 @@
 # Physical Design for ASICs
 VLSI physical design for ASICs is the process of converting a conceptual chip design into a physical layout suitable for manufacturing. It encompasses tasks such as arranging components, optimizing connections, managing power and clock distribution, addressing manufacturing challenges, and ensuring design compliance. This meticulous process guarantees a functional and manufacturable integrated circuit tailored to specific applications.
 # CONTENTS
-## [DAY 1](#day-1)
+## DAY 1
 **Introduction to RISCV ISA and GNU Compiler Toolchain**
 + Introduction to RISC-V Basic Keywords
   - [Introduction](#introduction)
@@ -18,7 +18,7 @@ VLSI physical design for ASICs is the process of converting a conceptual chip de
   - [64-bit Signed Numbers](#64-bit-signed-numbers)
   - [Lab For Signed and Unsigned Numbers](#lab-for-signed-and-unsigned-numbers)
 
-## [DAY 2](#day-2) 
+## DAY 2 
 **Introduction to ABI and Basic Verification Flow**
 + Application Binary Interface
   - [Introduction to ABI](#introduction-to-abi)
