@@ -4,6 +4,19 @@
 
 # Introduction
 **VLSI physical design for ASIC** is the process of converting a conceptual chip design into a physical layout suitable for manufacturing. It encompasses tasks such as arranging components, optimizing connections, managing power and clock distribution, addressing manufacturing challenges, and ensuring design compliance. This meticulous process guarantees a functional and manufacturable integrated circuit tailored to specific applications.
+
+# System requirments
+- Ubuntu 20+
+- RAM : 6Gb (minimum)
+- Disk space : 100Gb (minimum)
+- 
+# INSTALLATION
+https://github.com/kunalg123/riscv_workshop_collaterals/blob/master/run.sh
+- Download the run.sh
+- Open terminal
+- cd Downloads
+- ./run.sh
+  
 # CONTENTS
 <details>
 <summary>DAY 1</summary>
