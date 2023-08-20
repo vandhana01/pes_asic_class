@@ -1,6 +1,11 @@
 # Physical Design for ASICs
 VLSI physical design for ASICs is the process of converting a conceptual chip design into a physical layout suitable for manufacturing. It encompasses tasks such as arranging components, optimizing connections, managing power and clock distribution, addressing manufacturing challenges, and ensuring design compliance. This meticulous process guarantees a functional and manufacturable integrated circuit tailored to specific applications.
 # CONTENTS
+<details>
+<summary>DAY 1</summary>
+<br>
+
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigation)
 ## DAY 1
 **Introduction to RISCV ISA and GNU Compiler Toolchain**
 + Introduction to RISC-V Basic Keywords
@@ -18,18 +23,6 @@ VLSI physical design for ASICs is the process of converting a conceptual chip de
   - [64-bit Signed Numbers](#64-bit-signed-numbers)
   - [Lab For Signed and Unsigned Numbers](#lab-for-signed-and-unsigned-numbers)
 
-## DAY 2 
-**Introduction to ABI and Basic Verification Flow**
-+ Application Binary Interface
-  - [Introduction to ABI](#introduction-to-abi)
-  - [Memory Allocation for Double Words](#memory-allocation-for-double-words)
-  - [Load, Add and Store Instructions](#load,-add-and-store-instructions)
-  - [32-Registers and their ABI Names](#32-registers-and-their-abi-names)
-
-+ Labwork using ABI Function Calls
-  - [Algorithm for C Program using ASM](#algorithm-for-c-program-using-asm)
-  - [Review ASM Function Calls](#review-asm-function-calls)
-  - [Simulate C Program using Function Call](#simulate-c-program-using-function-call)
 
 # DAY 1    
  
@@ -152,7 +145,28 @@ int main(){
 
 <img width="502" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/7fef9481-74ef-4fcb-8462-eb0a7dc40cd9">
 
+</details>
+
+<details>
+<summary>DAY 2 </summary>
+<br>
+
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigation)
 # DAY 2
+
+
+## DAY 2 
+**Introduction to ABI and Basic Verification Flow**
++ Application Binary Interface
+  - [Introduction to ABI](#introduction-to-abi)
+  - [Memory Allocation for Double Words](#memory-allocation-for-double-words)
+  - [Load, Add and Store Instructions](#load,-add-and-store-instructions)
+  - [32-Registers and their ABI Names](#32-registers-and-their-abi-names)
+
++ Labwork using ABI Function Calls
+  - [Algorithm for C Program using ASM](#algorithm-for-c-program-using-asm)
+  - [Review ASM Function Calls](#review-asm-function-calls)
+  - [Simulate C Program using Function Call](#simulate-c-program-using-function-call)
 
 # Application Binary Interface
 
@@ -182,7 +196,7 @@ int main(){
 
 
 
-
+</details>
 
 
 
