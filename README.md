@@ -9,8 +9,8 @@
 - Ubuntu 20+
 - RAM : 6Gb (minimum)
 - Disk space : 100Gb (minimum)
-- 
-# INSTALLATION
+  
+# Installation
 https://github.com/kunalg123/riscv_workshop_collaterals/blob/master/run.sh
 - Download the run.sh
 - Open terminal
@@ -208,7 +208,44 @@ int main(){
 <img width="650" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/76ab920b-3abd-4085-b1b7-96e40af4945b"> 
 
 ## Load, Add and Store Instructions
+Load, Add, and Store instructions are often used to manipulate data within a computer's memory and registers.
+1. **Load Instructions:**
+Load instructions are used to transfer data from memory to registers. They allow you to fetch data from a specified memory address and place it into a register for further processing.
 
+Example `ld x6, 8(x5)`
+
+In this Example
+- `ld` is the load double-word instruction.
+- `x6` is the destination register.
+- `8(x5)` is the memory address pointed to by register `x5` (base address + offset).
+2. **Store Instructions:**
+Store instructions are used to write data from registers into memory.They store values from registers into memory addresses
+
+Example `sd x8, 8(x9)`
+
+In this Example
+- `sd` is the store double-word instruction.
+- `x8` is the source register.
+- `8(x9)` is the memory address pointed to by register `x9` (base address + offset).
+3. Add Instructions:
+  Add instructions are used to perform addition operations on registers. They add the values of two source registers and store the result in a destination register.
+
+Example `add x9, x10, x11`
+
+In this Example
+- `add` is the add instruction.
+- `x9` is the destination register.
+- `x10` and `x11` are the source registers.
+
+<img width="750" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/9df00634-f508-4c5f-9e55-86d4bf03be9f"> 
+
+## 32-Registers and their ABI Names
+The ABI names provide meaningful and consistent labels to the registers, which simplifies understanding their roles in function calls, data manipulation, and other operations.
+
+<img width="350" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/320a926d-6867-4803-bb13-4abcecbe1467"> 
+
+# Labwork using ABI Function Calls
+## Algorithm for C Program using ASM
 
 
 
