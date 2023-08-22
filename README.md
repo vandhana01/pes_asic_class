@@ -304,13 +304,43 @@ Disassemble the code
 
 <img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/038da5c5-6402-4e90-825c-9c8548353a95">
 
+
+## Lab to Run C-Program on RISCV-CPU
+
+```
+git clone https://github.com/kunalg123/riscv_workshop_collaterals.git
+```
+
+```
+cd riscv_workshop_collaterals
+```
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/2904e4cc-c126-4e06-9b12-4a04ca31ab88">
+
+
+```
+ls -ltr
+```
+
+```
+cd labs
+```
+
+```
+ls -ltr
+```
+
+```
+chmod 777 rv32im.sh
+```
+
+```
+./rv32im.sh
+```
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/3c9bb5d2-0247-436e-a666-c45148e03752">
+
 </details>
-
-
-
-
-
-
 
 
 
