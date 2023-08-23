@@ -1,6 +1,8 @@
 # Physical Design for ASICs
 
-<img width="503" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/7846569a-39e8-497d-9242-2a38cf3de04a">
+<img width="1100" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/2e4c7a2d-b188-403d-9482-a8efac7ceada">
+
+
 
 # Introduction
 **VLSI physical design for ASIC** is the process of converting a conceptual chip design into a physical layout suitable for manufacturing. It encompasses tasks such as arranging components, optimizing connections, managing power and clock distribution, addressing manufacturing challenges, and ensuring design compliance. This meticulous process guarantees a functional and manufacturable integrated circuit tailored to specific applications.
@@ -22,7 +24,7 @@ https://github.com/kunalg123/riscv_workshop_collaterals/blob/master/run.sh
 <summary>DAY 1</summary>
 <br>
 	
-[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigation)
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
 ## DAY 1
 **Introduction to RISCV ISA and GNU Compiler Toolchain**
 + Introduction to RISC-V Basic Keywords
