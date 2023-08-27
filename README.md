@@ -624,9 +624,41 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
 
-Introduction to timing.libs (Lab4)
-   + Lab4 Introduction to dot Lib
- 
+## Introduction to timing.libs (Lab4)
+**Introduction to dot Lib**
++ To view the contents in the .lib
+`gvim ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/bcdd2944-4944-499b-99c8-9400c084a9b2">
+
+
+- To have a pleasant color : `:syn off` (syntax off)
+    - NOTE: Don't edit this file
+- **sky130** : Name of the library
+- **tt**     : Typical process
+- **025C**   : Temperature variation
+- **P V T**  : Operating conditions (Process Voltage Temperature)
+    - Together determines how the silicon works
+- **1v80**   : Voltage levels variation
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/f49ac9c0-7677-40e3-9456-46bd9c75c756">
+
+- Displays the units of parameters
+- Contains area and power consumpution
+- .lib is a Bucket of all the standard cells
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/267ed2ae-d9e9-49dc-9039-7c02215dfb99">
+
+
+- To enable line number `:se nu`
+- To view all the cells `:g//`
+- To view any instance `:/instance`
+- Can compare and analyse the parameters
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/47cabe0a-eee7-40e9-9357-b1871e47fa46">
+
+
  </details>     
 
 
@@ -635,10 +667,69 @@ Introduction to timing.libs (Lab4)
 <br>
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
- + Hierarchical vs Flat synthesis
-   +  Hier synthesis flat synthesis (Lab5)
+## Hierarchical vs Flat synthesis (Lab5)
 
- 
+## Hierarchical Synthesis
+**Hierarchical synthesis involves breaking down a complex design into smaller modules for separate synthesis and integration. This approach enhances modularity, enables parallel development, and simplifies verification, making it ideal for large designs.**
+
+- File used : 'multiple_modules.v`
+- To view : `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+- and `gvim multiple_modules.v`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/d6816017-c0f4-48e9-8c92-1bf8c99ddeb6">
+
+
+- It contains 2 submodules : `sub_module1` -> AND gate and `sub_module2`->OR gate
+- `mutiple_module` instantiates them as `u1` and `u2` respectively
+  
++  Frist Launch Yosys     : `yosys`
++  Read the library file  : `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++  Read the verilog file  : `read_verilog multiple_modules.v`
++  To set it as top module: `synth -top multiple_modules`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/cc297050-dc6e-4469-90d8-3ac600194370">
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/a9495611-658d-489f-bf39-b9e6546a524e">
+
+
++  `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ To view the netlist    :`show multiple_modules`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/8740c0be-8439-4b75-9c4f-a81cc0a8a26c">
+
++ `sub_module1` and `sub_module2` are shown instead of AND gate and OR gate.
++ To view : `write_verilog -noattr multiple_modules_hier.v`
++ `!gvim multiple_modules_hier.v`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/fd066807-4c8b-4bc6-95fb-6b8976185214">
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/e1c470a9-0747-4c7d-a4ca-47f405231908">
+
+
+
+## Flat Synthesis
+**Flat synthesis treats the entire design as a single unit, synthesizing it as one entity. While simpler for smaller designs, it can become unwieldy for larger projects, leading to longer synthesis times and reduced reusability of modules.**
+
++  Launch  : `yosys`
++  Read the library file :   `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++  Read the verilog file : ` read_verilog multiple_modules.v`
++  To set it as top module: `synth -top multiple_modules` 
++  `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
++ `flatten` to write out a flattened netlist
++ `show` to view the netlist
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/7dffcc47-5ed6-40d6-b48e-08d156f95f34">
+
++ `write_verilog -noattr multiple_modules_flat.v`
++ `!gvim multiple_modules_flat.v`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/1e708f33-455c-40bf-a7d0-710e6ac6b174">
+
+**Why sub module level synthesis**
+- U seful when we have multiple instances of same module
+- Divide and Conquer
+- Helpful when circuits are massive
+-`synth -top module_name` controls which module to synthesis
  </details>     
 
 
@@ -648,11 +739,16 @@ Introduction to timing.libs (Lab4)
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
    
- + Various Flop Coding Styles and optimization
-     + Why flops and Flop coding styles
-     + Lab flop synthesis simulations
-     + Interesting Optimisations
-   
+## Various Flop Coding Styles and optimization
+- [Why flops and Flop coding styles](#why-flops-and-flop-coding-styles)
+- [Lab flop synthesis simulations](#lab-flop-synthesis-simulations)
+- [Interesting Optimisations](#interesting-optimisations)
+  
+## Why flops and Flop coding styles
+
+
+## Lab flop synthesis simulations
+## Interesting Optimisations
  
 </details> 
 </details>   
