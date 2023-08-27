@@ -21,7 +21,7 @@ https://github.com/kunalg123/riscv_workshop_collaterals/blob/master/run.sh
   
 # CONTENTS
 <details>
-<summary>DAY 1</summary>
+<summary> Introduction to RISCV ISA and GNU Compiler Toolchain </summary>
 <br>
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
@@ -167,7 +167,7 @@ int main(){
 </details>
 
 <details>
-<summary>DAY 2 </summary>
+<summary> Introduction to ABI and Basic Verification Flow </summary>
 <br>
 
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigation)
@@ -345,6 +345,194 @@ chmod 777 rv32im.sh
 </details>
 
 
+<details>
+<summary> RTL Design using verilog with SKY130 technology </summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+
+<details>
+<summary> Day1 : Introduction to Verilog RTL design and Synthesis</summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+
+
+
+<details>
+<summary> Introduction to open-source simulator iverilog </summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+
+## Introduction to open-source simulator iverilog
+**Introduction to iverilog design test bench**
+
+- **Simulator**
+  + Simulators create virtual models of systems, enabling analysis and testing of behaviors without real-world implementation
+  + Simulators is the tool used for simulating the design
+  + The simulator runs the model using the provided inputs. It calculates the system's behavior over time and produces output data upon change in input (if no change to the input, no change to the output)
+  + **iverilog** is the tool used here
+     + Icarus Verilog (iverilog) is an open-source simulator for hardware description languages like Verilog, enabling design, simulation, and testing of digital circuits
+     + It's used to model and validate digital systems before physical implementation
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/a1fe7cb8-41e6-423c-a986-b4f2fd1308f6">
+
+- **Design**
+  + Design is the actual verilog code or set of verilog codes which has the intended functionality to meet with the required specifications
+  
+- **TestBench**
+  + It involves creating a set of test cases and stimuli to apply to the design and then comparing the design's outputs with expected results.
+  + Test benches are written using hardware description languages like Verilog or VHDL
+  + This verification process is crucial for building reliable and bug-free digital systems
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/3c3fd20b-e3bb-4c9f-b3b7-41593c3356ea">  
+
+</details>
+
+
+<details>
+<summary> Labs using iverilog and gtkwave </summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+
+
+## Labs using iverilog and gtkwave
+
+- [Introduction to lab (Lab1)](#introduction-to-lab-lab1)
+- [iverilog GTKwave Part-1 (Lab2)](#iverilog-gtkwave-part-1-lab2)
+- [iverilog GTKwave Part-2 (Lab2)](#iverilog-gtkwave-part-2-lab2)
+
+## Introduction to lab (Lab1)
+
+
+## iverilog GTKwave Part-1 (Lab2)
+## iverilog GTKwave Part-2 (lab2)
+    
+
+</details>
+
+
+<details>
+<summary> Introduction to Yosys and Logic synthesis </summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+  
+      + Introduction to Yosys
+      + Introduction to logic synthesis
+        + part1
+        + part2
+
+
+ </details>
+
+ 
+<details>
+<summary> Labs using Yosys and Sky130 PDKs</summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+  
+     + Lab3 Yosys 1 good mux
+         + part1
+         + part2
+         + part3
+
+ </details>
+
+
+
+
+
+
+
+## Introduction to Yosys and Logic synthesis
+
+
+## Labs using Yosys and Sky130 PDKs
+
+</details>  
+
+<details>
+<summary> Day 2</summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+
+# Timing libs, hierarchical vs flat synthesis and efficient flop coding styles
+ + Introduction to timing.libs
+   + Lab4 Introduction to dot Lib
+      + part1
+      + part2
+      + part3
+ + Hierarchical vs Flat synthesis
+   + Lab5 Hier synthesis flat synthesis
+       + part1
+       + part2    
+ + Various Flop Coding Styles and optimization
+    + Why flops and Flop coding styles
+       + part1
+       + part2
+     + Lab flop synthesis simulations
+        + part1
+        + part2
+     + Interesting Optimisations
+        + part1
+        + part2    
+
+</details>   
+
+<details>
+<summary> Day 3 </summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+
+# Combinational and sequential optmizations
++ Introduction to optimisations
+   + part1
+   + part2
+   + part3
++ Combinational logic optimizations
+  + Lab6 Combinational logic optimizations
+    + part1
+    + part2
++ Sequential logic optimizations
+  + Lab7 Sequential logic optimizations
+    + part1
+    + part2
+    + part3
++ Sequential optimizations for unused outputs    
+    + part1
+    + part2
+
+</details>  
+
+<details>
+<summary> Day 4</summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+
+# GLS, blocking vs non-blocking and Synthesis-Simulation mismatch
++ GLS, synthesis-Simulation mismatch and Blocking/Non-blocking statements
+   + GLS concepts and flow using iverilog
+   + synthesis-Simulation mismatch
+   + Blocking and Non-blocking statements in verilog
+   + Caveats with blocking statements
++ Labs on GLS and Synthesis-Simulation Mismatch
+   + part1
+   + part2
++ Labs on synth-sim mismatch for blocking statement
+   + part1
+   + part2
+
+  
+</details>   
+  
+</details>                    
 
 
 
