@@ -344,15 +344,14 @@ chmod 777 rv32im.sh
 
 </details>
 
-
 <details>
 <summary> RTL Design using verilog with SKY130 technology </summary>
 <br>
-	
-[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
 
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+## Day 1
 <details>
-<summary> Day1 : Introduction to Verilog RTL design and Synthesis</summary>
+<summary> Introduction to Verilog RTL design and Synthesis</summary>
 <br>
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
@@ -400,15 +399,83 @@ chmod 777 rv32im.sh
 
 ## Labs using iverilog and gtkwave
 
+**Icarus Verilog** simulates the design and generates simulation output files, and **GTKWave** then allows you to visually inspect and analyze the simulation results in waveform format
+
 - [Introduction to lab (Lab1)](#introduction-to-lab-lab1)
 - [iverilog GTKwave Part-1 (Lab2)](#iverilog-gtkwave-part-1-lab2)
 - [iverilog GTKwave Part-2 (Lab2)](#iverilog-gtkwave-part-2-lab2)
 
 ## Introduction to lab (Lab1)
+- Environment setup !!!
++ create a directory ` mkdir vsd `
++ change directory ` cd vsd `
++ Git clonning ` git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop.git`
+   + `sky130RTLDesignAndSynthesisWorkshop` folder will be created
 
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/5eeabad8-63c7-4a6a-aaa9-5b1bd4b10139"> 
 
 ## iverilog GTKwave Part-1 (Lab2)
-## iverilog GTKwave Part-2 (lab2)
++ ` cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files
+    + loads verilog source files and associated testbench files into iverilog simulator
+    + verilog_files : this folder contains all design files
++ `iverilog good_mux.v tb_good_mux.v` loads mux into the simulator
++ output file `a.out` will be created
++ Execute a.out `./a.out` to dump the vcd file (output of simulator)
++ To load vcd file into simulator ` gtkwave tb_good_mux.vcd`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/c6d25681-de8d-449c-a270-bfd454f15e4a"> 
+
+## iverilog GTKwave Part-2 (Lab2)
+`gvim tb_good_mux.v -o good_mux.v` to view the files
+
+
+**good_mux.v**
+
+``` v
+module good_mux (input i0 , input i1 , input sel , output reg y);
+always @ (*)
+begin
+	if(sel)
+		y <= i1;
+	else 
+		y <= i0;
+end
+endmodule
+```
+**tb_good_mux.v**
+
+``` v
+timescale 1ns / 1ps
+module tb_good_mux;
+	// Inputs
+	reg i0,i1,sel;
+	// Outputs
+	wire y;
+
+        // Instantiate the Unit Under Test (UUT)
+	good_mux uut (
+		.sel(sel),
+		.i0(i0),
+		.i1(i1),
+		.y(y)
+	);
+
+	initial begin
+	$dumpfile("tb_good_mux.vcd");
+	$dumpvars(0,tb_good_mux);
+	// Initialize Inputs
+	sel = 0;
+	i0 = 0;
+	i1 = 0;
+	#300 $finish;
+	end
+
+always #75 sel = ~sel;
+always #10 i0 = ~i0;
+always #55 i1 = ~i1;
+endmodule
+```
+
     
 
 </details>
@@ -419,12 +486,87 @@ chmod 777 rv32im.sh
 <br>
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
-  
-      + Introduction to Yosys
-      + Introduction to logic synthesis
-        + part1
-        + part2
 
+
+## Introduction to Yosys and Logic synthesis
+
+- [Introduction to Yosys](#introduction-to-yosys)
+- [Introduction to Logic synthesis)](#introduction-to-logic-synthesis)
+
+
+## Introduction to Yosys
+- **Synthesizer**
+   + Synthesizeris a tool used for converting the RTL to netlist
+   + **Yosys** is the synthesizer used in the course
+      + Yosys is an open-source synthesis tool that translates hardware description language (HDL) code into gate-level netlists, optimizing designs for efficient hardware implementation.
+- **Netlist**
+  + Netlist is the representation of the design in the form of standard cells in the .lib
+  + Design and .lib files are fed to the synthesizer to get a netlist file
+ 
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/56f8289c-4737-481e-9bb3-2b86f38a6902"> 
+
++ Commands used to perform synthesis:
+  - To read the design :  `read_verilog` 
+  - To read the .lib file : `read_liberty` 
+  - To write out the netlist file : `write_verilog` 
+ 
+- Verify the synthesis
+ 
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/63bd1f15-ec42-47e3-b2d6-e76ee3ebe6d9"> 
+
+   - The output on the simulator must be same as the output observed during RTL simulation.
+   - Same RTL testbench can be used because the primary inputs and primary outputs remain same between the RTL design and synthesised netlist.
+
+## Introduction to Logic synthesis
+
+- **RTL design**
+  + Behavioral representation of the required specification
+  + RTL (Register-Transfer Level) forms a bridge between behavioral descriptions and gate-level implementation.
+
+- **Synthesis**
+  + RTL to gate level translation
+  + The design is coverted into dates and the connections are made between the gates
+  + This is given out as a file called netlist
+    
+<img width="350" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/dd91792a-9e4b-4c6e-ac62-55cd19486580)"> 
+
+- **.lib**
+   + Collection of logical modules
+   + Includes basic logic gates like AND, OR, NOT, etc
+   + Different flavors of same gate , **WHY ??**
+       + These variations are designed to accommodate specific design requirements, process technologies, and performance goals
+       + Clock frquency should be high, Hence time period of the clock should be  as low as possible
+         
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/5030de94-2f5a-4ea4-952d-2d3ffb04c9f5"> 
+
+- What is maximum clock rate ? tclk ?
+	+ Propogation delay of Flop A
+	+ Propogational delay of combinational circuit
+	+ Time before clock edge, setup time
+- So we need cells that work fast to make Tcombi samall
+- Are faster cells sufficient ??
+   + NO
+- Why do we need slow cells ?
+  
+<img width="150" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/2c4cf856-de06-4d1d-96e3-c7f072b448f2"> 
+
+   + To ensure that there are no "HOLD" issues at DFF_B, we need slow cells
+   + Hence we need cells that work fast to meet the required performance and we need cells that work slow to meet HOLD
+   **Hence the collection forms the .lib!!!**
+     
+**Faster cells vs Slower cells**
+- Load in degital circuit -> Capacitance
+- Faster the charging/discharging of capacitance -> Lesser the cell delay
+    + To charge/discharge the capacitance fast, we need transistors capable of sourcing more current ( Wide Transistors)
+    + Wider transistors -> Low Delay -> More area and power as well
+    + Narrow transistors -> More Delay -> Less area and power
+-Faster cells come at the penalty of area and power
+
+**Selction of cells**
+Synthesizer should be guided to select the flavour of cells that is optimum for the implementation of logic circuit. Guidance offered -> "Constaints"
+
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/b4119c84-db5f-4751-acfd-72c81fe4b3d6">
 
  </details>
 
@@ -434,89 +576,139 @@ chmod 777 rv32im.sh
 <br>
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+## Labs using Yosys and Sky130 PDKs 
+-[Yosys good mux (Lab3)](#yosys-good-mux-lab3)
+
+ The SkyWater Technology Foundry's **SKY130 Process Design Kit (PDK)** is a collection of files, data, and models that enable the design and layout of integrated circuits using the SkyWater 130 nm technology node. PDKs provide designers with the necessary tools and information to create, simulate, and verify custom and digital designs that can be manufactured using the specific technology offered by the foundry. 
+ 
+## Yosys good mux (Lab3)
+- To invoke the Yosys : `yosys`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/eaa3287e-b5b6-4597-b29a-d8651c4839f6">
+
+- To read the library : ` read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+- To read the design : `read_verilog good_mux.v`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/3953ff06-69ed-48b0-a966-39ff5fa2b560">
+
+- To synthesis the mosule : `synth -top good_mux`
   
-     + Lab3 Yosys 1 good mux
-         + part1
-         + part2
-         + part3
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/6309e60b-1c8c-467b-ad52-e550bc305daf">
 
- </details>
+- To generate the netlist : `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
 
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/c948cd72-9e64-4bd9-a102-4f98112eab3b">
 
+- To see the logic it has realised `show`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/30e2335a-7f17-4eef-b203-804640eb62d5">
 
-
-
-
-
-## Introduction to Yosys and Logic synthesis
-
-
-## Labs using Yosys and Sky130 PDKs
-
+- To write the netlist : 'write_verilog good_mux_netlist.v`
+- ` !gvim good_mux_netlist.v`
+-  To view a simplified code : ` write_verilog -noattr good_mux_netlist.v`
+-  `!gvim good_mux_netlist.v`
+  
+</details>
 </details>  
 
+## Day 2
 <details>
-<summary> Day 2</summary>
+<summary> Timing libs, hierarchical vs flat synthesis and efficient flop coding styles</summary>
 <br>
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
 
-# Timing libs, hierarchical vs flat synthesis and efficient flop coding styles
- + Introduction to timing.libs
-   + Lab4 Introduction to dot Lib
-      + part1
-      + part2
-      + part3
- + Hierarchical vs Flat synthesis
-   + Lab5 Hier synthesis flat synthesis
-       + part1
-       + part2    
- + Various Flop Coding Styles and optimization
-    + Why flops and Flop coding styles
-       + part1
-       + part2
-     + Lab flop synthesis simulations
-        + part1
-        + part2
-     + Interesting Optimisations
-        + part1
-        + part2    
+<details>
+<summary> Introduction to timing.libs </summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
 
+Introduction to timing.libs (Lab4)
+   + Lab4 Introduction to dot Lib
+ 
+ </details>     
+
+
+<details>
+<summary> Hierarchical vs Flat synthesis </summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+ + Hierarchical vs Flat synthesis
+   +  Hier synthesis flat synthesis (Lab5)
+
+ 
+ </details>     
+
+
+<details>
+<summary>Various Flop Coding Styles and optimization</summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+   
+ + Various Flop Coding Styles and optimization
+     + Why flops and Flop coding styles
+     + Lab flop synthesis simulations
+     + Interesting Optimisations
+   
+ 
+</details> 
 </details>   
 
+## Day 3
 <details>
-<summary> Day 3 </summary>
+<summary> Combinational and sequential optmizations </summary>
 <br>
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
 
-# Combinational and sequential optmizations
-+ Introduction to optimisations
-   + part1
-   + part2
-   + part3
-+ Combinational logic optimizations
-  + Lab6 Combinational logic optimizations
-    + part1
-    + part2
-+ Sequential logic optimizations
-  + Lab7 Sequential logic optimizations
-    + part1
-    + part2
-    + part3
-+ Sequential optimizations for unused outputs    
-    + part1
-    + part2
 
+<details>
+<summary> Introduction to optimisations</summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
++ Introduction to optimisations
+
+</details> 
+<details>
+<summary> Combinational logic optimizations </summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+## Combinational logic optimizations (Lab6)
+
+
+</details> 
+<details>
+<summary> Sequential logic optimizations </summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+
+## Sequential logic optimizations (Lab7)
+ 
+</details> 
+<details>
+<summary>  Sequential optimizations for unused outputs  </summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+
+## Sequential optimizations for unused outputs    
+
+</details> 
 </details>  
 
+## Day 4
 <details>
-<summary> Day 4</summary>
+<summary> GLS, blocking vs non-blocking and Synthesis-Simulation mismatch</summary>
 <br>
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
 
-# GLS, blocking vs non-blocking and Synthesis-Simulation mismatch
 + GLS, synthesis-Simulation mismatch and Blocking/Non-blocking statements
    + GLS concepts and flow using iverilog
    + synthesis-Simulation mismatch
