@@ -999,7 +999,13 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
 ## Combinational logic optimizations (Lab6)
-- **opt_check**
+- [opt_check](#opt_check)
+- [opt_check2](#opt_check2)
+- [opt_check3](#opt_check3)
+- [opt_check4](#opt_check4)
+- [multiple_module_opt](#multiple_module_opt)
+  
+## opt_check
 - To look at the RTL code
 	- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
 	- `gvim opt_check.v`
@@ -1021,7 +1027,7 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 
 <img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/6b2571dc-e221-4981-b0ae-5770489b55e5">
 
-- **opt_check2**
+## opt_check2
 - To look at the RTL code
 	- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
 	- `gvim opt_check2.v`
@@ -1044,7 +1050,7 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 <img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/f5c93b1d-3003-4516-a4f6-6ccf9f841d26">
 
 
-- **opt_check3**
+## opt_check3
 - To look at the RTL code
 	- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
 	- `gvim opt_check3.v`
@@ -1067,7 +1073,7 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 <img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/b0fc25c4-ad70-4f55-a896-9bc94c20423b">
 
 
-- **opt_check4**
+## opt_check4
 - To look at the RTL code
 	- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
 	- `gvim opt_check4.v`
@@ -1091,7 +1097,7 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 
 
 
-- **multiple_module_opt**
+## multiple_module_opt
 - To look at the RTL code
 	- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
 	- `gvim multiple_module_opt.v`
@@ -1122,7 +1128,159 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
 
 ## Sequential logic optimizations (Lab7)
- 
+- [dff_const1](#dff_const1)
+- [dff_const2](#dff_const2)
+- [dff_const3](#dff_const3)
+- [dff_const4](#dff_const4)
+- [dff_const5](#dff_const5)
+
+## dff_const1
+- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+- `gvim dff_const1.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/d280b206-0bd3-407e-8398-fe74eceeba76">
+
+- **Simulation**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `iverilog dff_const1.v tb_dff_const1.v`
+   - `./a.out`
+   - `gtkwave tb_dff_const1.vcd`
+     
+- OUTPUT
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/a599e34b-db12-4228-ba8f-2c5f155a0e8d">
+
+- **Synthesis**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog dff_const1.v`
+   - `synth -top dff_const1`
+   - `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib `
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/410e4642-01a4-4dd3-8f19-c0c8a8b46ba0">
+
+## dff_const2
+- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+- `gvim dff_const2.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/2484b140-e115-4a04-994f-484ab86072b8">
+
+- **Simulation**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `iverilog dff_const2.v tb_dff_const2.v`
+   - `./a.out`
+   - `gtkwave tb_dff_const2.vcd`
+     
+- OUTPUT
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/4c5f73bc-d98b-4126-8997-10fee42fcc2c">
+
+
+- **Synthesis**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog dff_const2.v`
+   - `synth -top dff_const2`
+   - `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib `
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/3cf456ac-56f4-4462-8c64-495df3147e80">
+
+
+## dff_const3
+- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+- `gvim dff_const3.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/aa085a87-d270-407c-995b-abee10ff93a0">
+
+- **Simulation**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `iverilog dff_const3.v tb_dff_const3.v`
+   - `./a.out`
+   - `gtkwave tb_dff_const3.vcd`
+     
+- OUTPUT
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/7ddc0cd0-fdfb-4b24-a1f6-d684f66eac7f">
+
+- **Synthesis**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog dff_const3.v`
+   - `synth -top dff_const3`
+   - `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib `
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/499f4930-bf45-4930-b81e-6471172cdbef">
+
+## dff_const4
+- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+- `gvim dff_const4.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/f93252e5-5f97-46ae-b9fb-0291ecb463b2">
+
+- **Simulation**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `iverilog dff_const4.v tb_dff_const4.v`
+   - `./a.out`
+   - `gtkwave tb_dff_const4.vcd`
+     
+- OUTPUT
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/953f2daf-4a80-4dcd-974d-6da7183106ba">
+
+- **Synthesis**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog dff_const4.v`
+   - `synth -top dff_const4`
+   - `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib `
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/71d67c55-a813-45c5-b2a9-a0ba32aeba91">
+
+## dff_const5
+- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+- `gvim dff_const5.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/74c6a764-2115-4bd8-8cb9-6bbe0cfe5063">
+
+- **Simulation**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `iverilog dff_const5.v tb_dff_const5.v`
+   - `./a.out`
+   - `gtkwave tb_dff_const5.vcd`
+     
+- OUTPUT
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/f21e94a6-72eb-4cb7-b893-59fa99829cfb">
+
+- **Synthesis**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog dff_const5.v`
+   - `synth -top dff_const5`
+   - `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib `
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/cdadc96a-5a53-4b12-946d-51a40634c924">
+
 </details> 
 <details>
 <summary>  Sequential optimizations for unused outputs  </summary>
@@ -1130,7 +1288,48 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
 
-## Sequential optimizations for unused outputs    
+## Sequential optimizations for unused outputs 
+- [counter_opt](#counter_opt)
+- [counter_opt2](#counter_opt2)
+
+## counter_opt
+- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+- `gvim counter_opt.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/304f06b8-ebff-4ef8-8cc4-042c2430a350">
+
+- **Synthesis**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog counter_opt.v`
+   - `synth -top counter_opt`
+   - `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib `
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+
+<img width="750" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/ef4f0f85-9e00-4e25-a43c-5dc609c8a5cb">
+
+## counter_opt2
+- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+- `gvim counter_opt2.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/d788dc1d-8c0c-4c86-878c-009c870022f7">
+
+- **Synthesis**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog counter_opt2.v`
+   - `synth -top counter_opt`
+   - `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib `
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+
+<img width="750" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/3562b15a-b362-4977-ae86-71d293ab2684">
+
 
 </details> 
 </details>  
