@@ -816,8 +816,9 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
    - `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
    - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
    - `show`
-     
-<img width="550" alt="image" src="!https://github.com/vandhana01/pes_asic_class/assets/142392052/febe071c-9064-4fa9-8b30-791b20d73ab8">
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/febe071c-9064-4fa9-8b30-791b20d73ab8">
+
 
 ## D Flip_Flop with Asynchronous Set
 - When the clock rises from 0 to 1, the flip-flop samples the value at its Data (D) input and updates its stored state accordingly.
@@ -885,7 +886,62 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 
 
 ## Interesting Optimisations
- 
+- To look at the RTL code
+	- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+	- `gvim mult_2.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/b5417497-2bdc-4727-a27d-a7e4f45fc286">
+
+- Here input **a** is 3-bit , output **y** is 4-bit and relation is **y=2*a**
+- observation
+	- A Number **a** multiplied by 2 is a number appended by 0 **{a,0}**
+ 	- No extra hardware is required for multiplying a number with 2 or powers of 2
+    	- ground the LSB , interconnect other bits in order
+
+- Lets see what we get when we synthesis
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog mult_2.v`
+   - `synth -top mul2`
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/fbd7454f-fee3-462d-9c73-5c21df1a9aa1">
+
+- **netlist**
+    - `write_verilog -noattr mul2_netlist.v`
+    - `!gvim mul2_netlist.v`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/bbcc5f98-1592-467e-b251-8748a8386b04">
+
+- Another special case
+   - Here input **a** is 3-bit , output **y** is 6-bit and relation is **y=9*a**
+- To look at the RTL code
+	- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+	- `gvim mult_8.v`
+   
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/a595cde8-95c0-4563-ba6e-07559c2120ba">
+
+- Lets see what we get when we synthesis
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog mult_8.v`
+   - `synth -top mult8`
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/218caf9a-2e48-4039-9ad3-524cae3f1efd">
+
+- **netlist**
+    - `write_verilog -noattr mul8_netlist.v`
+    - `!gvim mult8_netlist.v`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/fd91fb9e-3da0-4fb4-987d-af40b1ccda6f">
+   
 </details> 
 </details>   
 
@@ -902,8 +958,40 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 <br>
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
-+ Introduction to optimisations
+## Introduction to Logic optimisations
 
+**Combinational Logic optimisations**
+- **Combinational logic??** refers to a type of digital logic design where the output is solely determined by the current input values, and there are no memory elements involved. Examples of combinational circuits include adders, multiplexers, demultiplexers, comparators, and more.
+- Squeezing the logic to get the most optimised design (Area and power savings)
+
+**Optimisation techniques**
+- **Constant Propogation** (Direct Optimisation)
+	- dentify signals that are derived from constant inputs or other signals with constant values.
+	- Replace these signals with their constant values throughout the logic.
+	- Update downstream logic accordingly, simplifying the circuit.
+	- This optimization eliminates unnecessary logic and reduces gate count, improving circuit efficiency and performance.
+- **Boolean logic optimization** (using K-map or Quine McKluskey)
+	- Apply Boolean algebra rules to simplify logic expressions, using techniques like factorization, distribution, and absorption.
+   	-  Use Karnaugh Maps (K-Maps) to identify patterns and group terms for simplification.
+        - Eliminate redundant terms and simplify expressions further.
+	- This optimization reduces the number of gates, improves circuit performance, and enhances overall efficiency.
+
+**Sequential Logic Optimizations**
+- **Sequential Logic??** is a fundamental concept in digital circuit design that involves elements capable of storing information (memory elements like flip-flops and latches) and producing outputs based not only on current inputs but also on past inputs and internal states.It forms the basis for many digital devices, including microcontrollers, processors, and communication systems.
+- Designers must carefully evaluate the trade-offs between speed, power, and complexity to create effective and optimized sequential logic designs.
+
+**Optimisation techniques**
+- Basic
+   - **Sequential constant propagation**
+	- Sequential constant propagation is an optimization technique that involves identifying and replacing intermediate signals within a sequential circuit with their constant values. This technique aims to eliminate unnecessary calculations and logic, reducing the complexity of the circuit.
+- Advanced
+   - **State optimization**
+     	- State optimization focuses on reducing the number of states in a finite state machine (FSM) or reducing the complexity of state transitions. By eliminating redundant or unreachable states and simplifying the transition logic, designers can create more efficient and streamlined state machines.
+   - **Retiming**
+     	- Retiming is a technique used to balance the delay of a sequential circuit by moving flip-flops within the design. By strategically relocating flip-flops along the critical path, designers can minimize propagation delays and improve the overall performance of the circuit.
+   - **Sequential logic cloning** (Floor Plan Aware Synthesis)
+	- Sequential logic cloning involves duplicating a portion of a sequential circuit to optimize its performance. This technique is particularly useful for critical paths where excessive delays are present. By replicating a section of the circuit and introducing additional registers, designers can reduce the delay along the path.
+   
 </details> 
 <details>
 <summary> Combinational logic optimizations </summary>
@@ -911,6 +999,119 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
 ## Combinational logic optimizations (Lab6)
+- **opt_check**
+- To look at the RTL code
+	- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+	- `gvim opt_check.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/43a315f8-0d96-4b05-adb1-a1e5c980fed8">
+
+- synthesis
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog opt_check.v`
+   - `synth -top opt_check`
+   - `opt_clean -purge` : For constant Propogation optimisation
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/0e1358d8-9657-4de5-b107-4db795b9a916">
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/6b2571dc-e221-4981-b0ae-5770489b55e5">
+
+- **opt_check2**
+- To look at the RTL code
+	- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+	- `gvim opt_check2.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/b2592f4e-ef1a-4568-8303-5e7e5aa62700">
+
+- synthesis
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog opt_check2.v`
+   - `synth -top opt_check2`
+   - `opt_clean -purge` 
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/5f309b47-7665-4508-b927-4080c6190296">
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/f5c93b1d-3003-4516-a4f6-6ccf9f841d26">
+
+
+- **opt_check3**
+- To look at the RTL code
+	- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+	- `gvim opt_check3.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/f62eeed3-3728-4307-9219-06ff4e7ad148">
+
+- synthesis
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog opt_check3.v`
+   - `synth -top opt_check3`
+   - `opt_clean -purge`
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/af41291a-96e0-41a7-ac5b-a9f9957af8a2">
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/b0fc25c4-ad70-4f55-a896-9bc94c20423b">
+
+
+- **opt_check4**
+- To look at the RTL code
+	- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+	- `gvim opt_check4.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/4b08507e-1687-42a8-9b30-7e47c5860378">
+
+- synthesis
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog opt_check4.v`
+   - `synth -top opt_check4`
+   - `opt_clean -purge`
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/310a5ca1-f592-44a5-a150-e8b078bdf693">
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/9c7a8966-12b6-49e0-86d5-8201bfc09d5e">
+
+
+
+- **multiple_module_opt**
+- To look at the RTL code
+	- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+	- `gvim multiple_module_opt.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/db948604-3af1-4ad8-a6e0-c80574baf752">
+
+- synthesis
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog multiple_module_opt.v`
+   - `synth -top multiple_module_opt`
+   - `opt_clean -purge`
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show multiple_module_opt `
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/e4ace4b9-44a4-437f-8734-6df63eeb2b4f">
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/7b4426ed-6f89-4f51-a9b5-f746866829d4">
 
 
 </details> 
