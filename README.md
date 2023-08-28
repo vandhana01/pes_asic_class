@@ -745,9 +745,145 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 - [Interesting Optimisations](#interesting-optimisations)
   
 ## Why flops and Flop coding styles
+**What are flops??**
+- Flip-flops, often referred to as "flops," are fundamental building blocks in digital circuits
+- Flip-flops are fundamental to sequential logic circuits and play a vital role in memory storage and synchronization of signals with clock edges.
+-  Flip-flops are used to store state information in sequential circuits, enabling the creation of memory elements, registers, and other essential components in digital designs.
+ 
+**Why flops??**
+- In a combinational circuit, when a input is given to a flop, output changes after the propagation delay
+- Output glitches occur due to this propagation delay
+- **Glitch** occurs when the intermediate signals reach the next set of gates while they are still transitioning. This can lead to temporary, unwanted changes in the output until all paths stabilize and reach a consistent logic state
+- More the number of combinational circuit, more the glitches (output will never settle down)
+- To avoid this we want a element to store that value, that is **flop**
+- Basically Flops are like storage elements present between the combinational circuits
+- output of the flop will change only at the edge of the clock ,therefore even if the input is changing output will be stable
+- Hence aviods the transfer of gitch to the subsequent combinational circuits
+- Controls pin called **Reset** and **set** are used to initialize the flop
+- They can be synchronous or asynchronous
+
+## D Flip-Flop with Asynchronous and synchronous Reset
+
+- asynchronous->irrespective of clock
+- synchronous->with respecte to clock
+- when both asynchronous and synchronous reset is present, should take care of race
+  
+  - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+  - `gvim dff_asyncres_syncres.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/b61d78a3-36c0-44d5-83ce-1fc0460c0259">
+
+- **Simulation**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `iverilog dff_asyncres_syncres.v tb_dff_asyncres_syncres.v`
+   - `./a.out`
+   - `gtkwave tb_dff_asyncres_syncres.vcd`
+     
+- OUTPUT
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/9af4f145-6e3c-41c1-be66-91236c6726c7">
 
 
 ## Lab flop synthesis simulations
+
+## D Flip-Flop with Asynchronous Reset
+- When the asynchronous reset input is asserted (set to 1), the flip-flop's output is immediately forced to 0, regardless of the clock signal's state.
+- When the clock rises from 0 to 1, the flip-flop samples the value at its Data (D) input and updates its stored state accordingly.
+
+  - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+  - `gvim dff_asyncres.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/8040e97b-d2f0-4074-b749-b7ccb41b1e96">
+
+- **Simulation**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `iverilog dff_asyncres.v tb_dff_asyncres.v`
+   - `./a.out`
+   - `gtkwave tb_dff_asyncres.vcd`
+     
+- OUTPUT
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/7f27ad28-faf1-4cee-8e52-0c969dc71aa6">
+
+- **Synthesis**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog dff_asyncres.v`
+   - `synth -top dff_asyncres`
+   - `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+     
+<img width="550" alt="image" src="!https://github.com/vandhana01/pes_asic_class/assets/142392052/febe071c-9064-4fa9-8b30-791b20d73ab8">
+
+## D Flip_Flop with Asynchronous Set
+- When the clock rises from 0 to 1, the flip-flop samples the value at its Data (D) input and updates its stored state accordingly.
+- When the asynchronous set input (S) is asserted (set to 1), the flip-flop's output (Q) is immediately forced to 1, regardless of the clock signal's state.
+
+  - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+  - `gvim dff_async_set.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/46903c4d-d823-4728-addd-b529b8e5d204">
+
+- **Simulation**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `iverilog dff_async_set.v tb_dff_async_set.v`
+   - `./a.out`
+   - `gtkwave tb_dff_async_set.vcd`
+     
+- OUTPUT
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/a6b5ce19-5000-4ba3-9417-2daffcb40554">
+
+- **Synthesis**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog dff_async_set.v`
+   - `synth -top dff_async_set`
+   - `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/ceb182bc-e9b3-4117-a70f-79d3473b0edc">
+
+## D Flip-Flop with Synchronous Reset 
+- When the clock rises from 0 to 1, the flip-flop samples the value at its Data (D) input and updates its stored state accordingly.
+- The synchronous reset input (R) allows you to reset the flip-flop's stored state when the clock rises. If the reset input (R) is asserted (set to 1) simultaneously with a rising clock edge, the flip-flop's output (Q) is forced to the reset state (typically 0).
+
+- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+- `gvim dff_syncres.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/81efabae-3eff-4e71-b1ca-c4e11f69d096">
+
+- **Simulation**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `iverilog dff_syncres.v tb_dff_syncres.v`
+   - `./a.out`
+   - `gtkwave tb_dff_syncres.vcd`
+     
+- OUTPUT
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/eb72d454-0ed6-44de-aa3b-afb742966611">
+
+- **Synthesis**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog dff_syncres.v`
+   - `synth -top dff_syncres`
+   - `dfflibmap -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib `
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/7f07809f-825b-4185-864d-75c9ed1de71e">
+
+
 ## Interesting Optimisations
  
 </details> 
