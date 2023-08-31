@@ -1341,19 +1341,131 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
 
-+ GLS, synthesis-Simulation mismatch and Blocking/Non-blocking statements
-   + GLS concepts and flow using iverilog
-   + synthesis-Simulation mismatch
-   + Blocking and Non-blocking statements in verilog
-   + Caveats with blocking statements
-+ Labs on GLS and Synthesis-Simulation Mismatch
-   + part1
-   + part2
+<details>
+<summary>GLS, synthesis-Simulation mismatch and Blocking/Non-blocking statements</summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+
+- [GLS concepts and flow using iverilog](#GLS-concepts-and-flow-using-iverilog)
+- [Synthesis-Simulation mismatch](#Synthesis-Simulation-mismatch)
+- [Blocking and Non-blocking statements in verilog](#Blocking-and-Non-blocking-statements-in-verilog)
+- [Caveats with blocking statements](#Caveats-with-blocking-statements)
+  
+## GLS concepts and flow using iverilog
+**Gate level simulation (GLS)**
+- **What is GLS??**
+	- It is a verification process in digital design where the gate-level netlist of a design is simulated to ensure that it behaves as expected after the synthesis process. In gate-level simulation, the design is represented using actual gate-level components (AND gates, OR gates, flip-flops, etc.) and their interconnections.
+	- Run the testbench with netlist as the design under test
+	- Netlist is logically same as RTL code (same TB will allign with the design)
+- **Why GLS??**
+	- To verify the logical correctness of design under synthesis
+	- Ensuring the timing of the design is met
+	- It helps designers catch post-synthesis errors, timing issues, and other potential design flaws.
+- **GLS using iverilog**
+
+<img width="750" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/cbeb0cf9-fb14-454b-ae9d-83b7c03a9e36">
+
+## Synthesis-Simulation mismatch
+
+Discrepancies or inconsistencies that can arise between the behavior of a digital design as simulated and its behavior after synthesis.
+- **Reasons**
+	- Missing sensitivity List
+	- Blocking vs Non-blocking assignments
+	- Non standard Verilog coding
+   
+Addressing and minimizing synthesis-simulation mismatch is crucial for ensuring the correctness and reliability of digital designs. Careful validation, consistency in constraints, and understanding the intricacies of the synthesis process are key steps in mitigating this type of issue.
+     
+## Blocking and Non-blocking statements in verilog
+Blocking and non-blocking statements are two types of assignment statements used in Verilog, a hardware description language. They serve different purposes in describing how assignments are executed within a procedural block of code, such as an 'always' or 'initial' block.
+
+- **Blocking Assignment**
+
+    - Blocking assignments in Verilog use the `=` operator for assignment.
+    - A blocking assignment is executed sequentially, meaning the next statement will not be executed until the current assignment is complete.
+    - The value on the right side of the assignment is immediately assigned to the left-hand side, and the process waits for the assignment to complete before moving on.
+    - It represents a procedural programming-style behavior.
+
+```v
+a = 1;    // Assign the value 1 to 'a'
+b = a;    // Use the current value of 'a' to assign to 'b'
+c = b;    // Use the current value of 'b' to assign to 'c'
+```
+
+- **Non-blocking Assignment**
+
+    - Non-blocking assignments in Verilog use the <= operator for assignment.
+    - A non-blocking assignment schedules the assignment to take place at the end of the current time step without affecting the order of execution of subsequent statements.
+    - It is commonly used to model concurrent behavior, particularly in sequential logic circuits, by allowing multiple assignments to occur simultaneously within the same time step.
+    - It represents hardware modeling and concurrent behavior more accurately.
+
+```v
+always @(posedge clk) begin
+  a <= b;  // Schedule the assignment of 'b' to 'a'
+  b <= c;  // Schedule the assignment of 'c' to 'b'
+  c <= d;  // Schedule the assignment of 'd' to 'c'
+end
+```
+
+## Caveats with blocking statements
+
+Using blocking statements (`=`) in Verilog can introduce certain caveats and potential issues in your designs. Here are some important considerations to keep in mind:
+
+1. **Sequential Execution:** Blocking assignments are executed sequentially, meaning that each assignment must complete before the next one starts. This can lead to unintended delays and might not accurately capture concurrent behavior.
+
+2. **Race Conditions:** When multiple blocking assignments are used to update the same variable within a procedural block, the final value of the variable is determined by the order of execution. This can lead to race conditions where simulation results might not match hardware behavior.
+
+3. **Combinational Logic:** In combinational logic circuits, using only blocking assignments might not accurately model concurrent behavior. Combinational logic should ideally use non-blocking assignments (`<=`) to capture concurrent signal updates within the same time step.
+
+4. **Sensitivity Lists:** Procedural blocks using blocking assignments should have accurate sensitivity lists to ensure that the code executes when the appropriate events occur. Incorrect sensitivity lists can lead to unexpected simulation behavior.
+
+5. **Simulation vs. Hardware Behavior:** The sequential execution of blocking assignments in simulation might not accurately represent the concurrent behavior of hardware circuits.
+
+6. **Nested Blocking Blocks:** Nesting blocking assignment blocks within each other can lead to unintended delays and can complicate the design.
+
+7. **Timing Analysis:** If used improperly, blocking assignments in synchronous logic (such as setting flip-flop inputs) can lead to incorrect timing analysis results.
+
+8. **State Machines:** When describing state machines, using only blocking assignments might lead to incorrect state transitions if transitions are not carefully managed.
+
+**Best Practices to Mitigate Caveats:**
+
+1. **Use Non-Blocking Assignments:** For modeling concurrent behavior in sequential logic circuits, use non-blocking assignments (`<=`) to avoid race conditions and capture the expected hardware behavior.
+
+2. **Reserve Blocking for Sequential Logic:** Use blocking assignments (`=`) for simple sequential operations where one operation must complete before the next one starts.
+
+3. **Minimize Multiple Blocking Assignments:** Avoid multiple blocking assignments to the same variable within a single procedural block to prevent race conditions.
+
+4. **Sensitivity List Integrity:** Ensure that sensitivity lists in your procedural blocks are accurate and capture the necessary triggers for execution.
+
+5. **Separate Logic Types:** Clearly separate sequential logic (clocked processes) from combinational logic (non-blocking assignments) to maintain accurate modeling.
+
+6. **Avoid Nesting Blocks:** Minimize nesting of blocking assignment blocks to avoid unintended timing effects.
+
+7. **Consult Simulation Warnings:** Pay attention to simulation tool warnings or messages related to the usage of blocking assignments. They can offer insights into potential issues.
+
+By understanding these caveats and applying best practices, you can use blocking assignments effectively while mitigating potential pitfalls and ensuring accurate modeling of your Verilog designs.
+
+</details>     
+
+<details>
+<summary>Labs on GLS and Synthesis-Simulation Mismatch</summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
+
+
+
+</details> 
+<details>
+<summary>Labs on synth-sim mismatch for blocking statement</summary>
+<br>
+	
+[](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
 + Labs on synth-sim mismatch for blocking statement
    + part1
    + part2
 
-  
+</details>   
 </details>   
   
 </details>                    
