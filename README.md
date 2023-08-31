@@ -1453,17 +1453,125 @@ By understanding these caveats and applying best practices, you can use blocking
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
 
+- [Ternary operator mux](#Ternary-operator-mux)
+- [Bad_mux](#Bad-mux)
 
+## Ternary operator mux
+- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+- `gvim ternary_operator_mux.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/1778a50e-e9bd-4ba0-a62c-f6529f501149">
+
+- **Simulation**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `iverilog ternary_operator_mux.v tb_ternary_operator_mux.v`
+   - `./a.out`
+   - `gtkwave tb_ternary_operator_mux.vcd`
+     
+- OUTPUT
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/75ddfb8c-c2ec-4f47-916b-6fca39a57df6">
+
+- **Synthesis**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog ternary_operator_mux.v`
+   - `synth -top ternary_operator_mux`
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/d788d4e2-217e-45a0-999c-2508e8e2f529">
+
+- **GLS to Gate-Level Simulation**
+
+    - `iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v ternary_operator_mux_net.v tb_ternary_operator_mux.v`
+    - `./a.out`
+    - `gtkwave tb_ternary_operator_mux.vcd`
+      
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/5bc21f41-7d4b-4328-9a6d-addaf16c5225">
+      
+## Bad_mux
+- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+- `gvim bad_mux.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/ba70bbba-4674-40db-841a-f49f0a0f59cf">
+
+- **Simulation**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `iverilog bad_mux.v tb_bad_mux.v`
+   - `./a.out`
+   - `gtkwave tb_bad_mux.vcd`
+     
+- OUTPUT
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/55334f40-31fe-477d-9837-750f4ac90426">
+
+- **Synthesis**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog bad_mux.v`
+   - `synth -top bad_mux`
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/0148e431-ffbf-4950-a7a5-18c31b770119">
+
+- **GLS to Gate-Level Simulation**
+
+    - `iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v bad_mux.v tb_bad_mux.v`
+    - `./a.out`
+    - `gtkwave tb_bad_mux.vcd`
+      
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/218556de-de81-4927-82aa-bfa449e393e7">
 
 </details> 
+
 <details>
 <summary>Labs on synth-sim mismatch for blocking statement</summary>
 <br>
 	
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
-+ Labs on synth-sim mismatch for blocking statement
-   + part1
-   + part2
+
+## blocking_caveat
+- `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+- `gvim blocking_caveat.v`
+  
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/59c74996-fdac-4908-8cde-9d8e19c50dfa">
+
+- **Simulation**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `iverilog blocking_caveat.v tb_blocking_caveat.v`
+   - `./a.out`
+   - `gtkwave tb_blocking_caveat.vcd`
+     
+- OUTPUT
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/9b4484ae-49ae-400c-bc2a-ab7d20efff33">
+
+- **Synthesis**
+- CODE
+   - `cd vsd/sky130RTLDesignAndSynthesisWorkshop/verilog_files`
+   - `yosys`
+   - `read_liberty -lib ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `read_verilog blocking_caveat.v`
+   - `synth -top blocking_caveat`
+   - `abc -liberty ../lib/sky130_fd_sc_hd__tt_025C_1v80.lib`
+   - `show`
+
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/8881c6be-5275-4922-b2e6-1a0ee64e93b0">
+
+- **GLS to Gate-Level Simulation**
+
+    - `iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130_fd_sc_hd.v blocking_caveat.v tb_blocking_caveat.v`
+    - `./a.out`
+    - `gtkwave tb_blocking_caveat.vcd`
+      
+<img width="550" alt="image" src="https://github.com/vandhana01/pes_asic_class/assets/142392052/f3c28fca-c64b-4ced-96e3-f9d081789505">
+
 
 </details>   
 </details>   
