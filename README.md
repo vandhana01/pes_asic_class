@@ -43,7 +43,7 @@ https://github.com/kunalg123/riscv_workshop_collaterals/blob/master/run.sh
   - [Lab For Signed and Unsigned Numbers](#lab-for-signed-and-unsigned-numbers)
 
 
-# DAY 1    
+# DAY 1
  
 # Introduction to RISc-V Basic Keywords
 ## Introduction
@@ -349,7 +349,7 @@ chmod 777 rv32im.sh
 <br>
 
 [](https://github.com/vandhana01/pes_asic_class#links-for-easy-navigaton)
-## Day 1
+## Day 3
 <details>
 <summary> Introduction to Verilog RTL design and Synthesis</summary>
 <br>
@@ -611,7 +611,7 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 </details>
 </details>  
 
-## Day 2
+## Day 4
 <details>
 <summary> Timing libs, hierarchical vs flat synthesis and efficient flop coding styles</summary>
 <br>
@@ -945,7 +945,7 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 </details> 
 </details>   
 
-## Day 3
+## Day 5
 <details>
 <summary> Combinational and sequential optmizations </summary>
 <br>
@@ -1334,7 +1334,7 @@ Synthesizer should be guided to select the flavour of cells that is optimum for 
 </details> 
 </details>  
 
-## Day 4
+## Day 6
 <details>
 <summary> GLS, blocking vs non-blocking and Synthesis-Simulation mismatch</summary>
 <br>
